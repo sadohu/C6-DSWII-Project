@@ -335,7 +335,7 @@ $(document).ready(function () {
 //-----------------------INICIO Para buscar 
 //----------Con el que tiene la clase btn-editar, osea el boton que hace la actualizacion
 	$(document).on("click",".btn-editar",function(e){
-		e.preventDefault();
+		e.preventDefault();//evitar que se recargue doble
 		//Cogemos de las filas el de la columna 0 que es el codigo 
 		var codigo = $(this).parents("tr").find("td")[0].innerHTML;
 		//Llamamos al metodo buscarcliente a partir de codigo,pero como esta variable var de tipo
