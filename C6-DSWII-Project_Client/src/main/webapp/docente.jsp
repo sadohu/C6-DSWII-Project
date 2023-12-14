@@ -547,10 +547,13 @@ fields:{
     // Muestra el toast con el mensaje 
     if(mensaje  == null || mensaje == "" ){
     	console.log("Blah");
-    }else{
+    }else if(mensaje == "GUARDADO"){
     	 toastr.success(mensaje);
     	 console.log("Si hay guardado");
-    } 
+    } else{
+    	toastr.info(mensaje);
+    	console.log("Si hay actualizado");
+    }
    
 	</script>
 <script>
