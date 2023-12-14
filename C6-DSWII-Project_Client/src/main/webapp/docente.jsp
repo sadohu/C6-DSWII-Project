@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    
    <!-- Fin de Bootstrap -->
    <!-- Estilo de la tabla -->
    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
@@ -44,8 +47,16 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 <!-- Contenido centrado y con margens con container -->
 <div class="container">
 
+ 
+
+
 	</br>
   <h2 class="text-center" >Listado de Docentes</h2>
+  
+   
+  
+  
+  
   <!-- Insertamos boton -->
   <!-- Agregamos a boton data-toggle que es model y agregamos data-target que hara la conexion con el nombre o id del model de abajo-->
   <!-- Agregamos idNuevo para asignarle al input de codigo-> 0 para que agregue y no de error 
@@ -113,13 +124,16 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 				    <!-- <td align="center"><button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente">Editar</button></td> -->
 				    <td align="center">
 					  <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente">
-					    <a href="ControladorDocente?accion=Buscar&codigo=<%=lis.getCodigo() %>" style="color: white;">Editar</a>
+					<a href="ControladorDocente?accion=Buscar&codigo=<%=lis.getCodigo() %>" style="color: white;">Editar</a> 
+					    <!-- <a  style="color: white;">Editar</a> -->
 					  </button>
 					</td>
 				    
 				    <td align="center">
-				    <button type="button" class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#modalEliminar" >
-				    <a href="ControladorDocente?accion=Buscar&codigo=<%=lis.getCodigo() %>" style="color: white;">Eliminar</a>
+				    <!-- <button type="button" class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#modalEliminar" > -->
+				    <button type="button" class="btn btn-danger btn-eliminar" >
+				    <a id="eliminar" href="ControladorDocente?accion=Eliminar&codigo=<%=lis.getCodigo() %>" style="color: white;">Eliminar</a>
+				    <input type="hidden" id="cod" value="<%=lis.getCodigo() %>">
 				    </button>
 				    
 				    </td>
@@ -143,13 +157,18 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 		 	String men = "";
 		 	
 			  if (successMessage != null ) {
-				 men = "GUARDADO";
+				 men = successMessage;
 			  }
 			%>
 			  <div align="center"  id="successMessage"  style="display: none;" >
 			   <%=men%>
 			  </div>
 		  <!-- MENSAJE -->
+		  
+		
+		  
+		  
+		  
 		  
 		
   <!-- FIN DE LA TABLA -->
@@ -188,7 +207,7 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 		  <div class="form-group">
 		    <label for="exampleInputNombre1">Nombre</label>
 		    <!-- input type text por que sera una caja y asignamos name para reconocerlos en Servlet y para la validación  -->
-		    <input type="text" class="form-control" id="idNombre" name="nombre" placeholder="Ingresar nombre">
+		    <input type="text" class="form-control" id="idNombre" name="nombre" placeholder="Ingresar nombre" >
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputPaterno1">Paterno</label>
@@ -290,9 +309,12 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 <!-- Importamos más cosas que se necesitaran hasta mas campos para bootstrap esto sirve para paginacion y search y demás de la tabla junto a lo que esta en script -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="toastr.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
@@ -310,32 +332,59 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 $(document).ready(function () {
     $('#tableDocentes').DataTable();
 });
-//PARA QUE AL DAR CLICK EDITAR, APAREZCA LOS DATOS DE LA FILA EN LAS CAJAS DE TEXTO
-//Asignar evento click al boton con clase  btn-editar ponemos punto .btn-editar por que es una clase y necesitamos .
-$(document).on("click",".btn-editar",function(){
-	//variables
-	var cod,nom,pat,mat,sexo,hijos,sue;
-	//Obtener los valores de la fila actual segun el boton editar que se haya hecho click
-	//$ this hace referencia al boton y parents para agarrar los td de la tr de la fila
-	//donde tr es fila y td es celda y [0] lo que est dentro del [] significa el numero de columna a la que pertenece
-	cod=$(this).parents("tr").find("td")[0].innerHTML;
-	nom=$(this).parents("tr").find("td")[1].innerHTML;
-	pat=$(this).parents("tr").find("td")[2].innerHTML;
-	mat=$(this).parents("tr").find("td")[3].innerHTML;
-	sexo=$(this).parents("tr").find("td")[4].innerHTML;
-	hijos=$(this).parents("tr").find("td")[5].innerHTML;
-	sue=$(this).parents("tr").find("td")[6].innerHTML;
-	//Mostrar los valores de las variables  en los controles que tengan identificar id
-	//con val es para asignar valor
-	$("#idCodigo").val(cod);
-	$("#idNombre").val(nom);
-	$("#idPaterno").val(pat);
-	$("#idMaterno").val(mat);
-	$("#idSexo").val(sexo);
-	$("#idHijos").val(hijos);
-	$("#idSueldo").val(sue);
+//-----------------------INICIO Para buscar 
+//----------Con el que tiene la clase btn-editar, osea el boton que hace la actualizacion
+	$(document).on("click",".btn-editar",function(e){
+		e.preventDefault();
+		//Cogemos de las filas el de la columna 0 que es el codigo 
+		var codigo = $(this).parents("tr").find("td")[0].innerHTML;
+		//Llamamos al metodo buscarcliente a partir de codigo,pero como esta variable var de tipo
+		//codigo almacena el codigo de la fila, buscamos por ese campo y el metodo buscarCliente
+		//esta abajo que luego q busca por codigo asigna los datos a los inputs por medio del id
+	    buscarDocente(codigo);
 	
-})
+	})
+
+		//Metodo buscarDocente a partir de codigo
+		//se le quito la ruta desde la tabla pero se obtiene con 
+		//esta linea el code
+		//var codigo = $(this).parents("tr").find("td")[0].innerHTML;
+	function buscarDocente(codigo) {
+		var url="ControladorDocente?accion=Buscar&codigo="+codigo;
+		//usamos ajax
+	    $.ajax({
+	    	//nos dirigimos en la parte de get del controlador docente
+	        type: "GET",
+	        url: url,
+	        async:true,
+	        success: function(response){
+	        	console.log(response);
+	        	//creamos variable cliente que es igual al JSON que viene del controladordocente
+	        	var docente = response;
+	        	//asignamos lo obtenido del JSON a los inputs por medio de su id
+	        	//donde variable docente es solo referencial pero luego del punto si se pone
+	        	//campos propios declarados en el modelo Docente
+	            $("#idCodigo").val(docente.codigo);
+	            $("#idNombre").val(docente.nombres);
+	            $("#idPaterno").val(docente.paterno);
+	            $("#idMaterno").val(docente.materno);
+	            $("#idHijos").val(docente.hijos);
+	            $("#idSueldo").val(docente.sueldo);
+	            $("#idSexo").val(docente.sexo);
+	        },
+	        //en caso no traia JSON  en el response dara error
+	        error: function(response){
+	            alert("Error al buscar el Docente");
+	        }
+	    });
+	}
+
+
+
+
+
+//---------------------------FIN DE BUSCAR
+
 //------------Para usar la clase btn-eliminar asignado al boton eliminar con evento click
 $(document).on("click",".btn-eliminar",function(){
 	//variables
@@ -504,7 +553,49 @@ fields:{
     } 
    
 	</script>
+<script>
+//Para eliminar
+//Eliminar AJAX en base al de id eliminar y el de id cod del boton eliminar
+	$(document).ready(function(){
+		//$("tr #eliminar").click(function(y){
+		$("#tableDocentes").on("click", "tr #eliminar", function(y) { //Al cambiar
+			//de paginacion solo eliminaba a los 10 primeros, con esto delegamos
+			//que sera del cambio de paginacion de tableDocentes para eliminar
+			y.preventDefault();
+			var cod=$(this).parent().find("#cod").val();
+		    Swal.fire({
+			  title: 'Eliminar Docente',
+			  text: "¿Usted Desea Eliminar el Docente?",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'SI, ELIMINAR DOCENTE',
+			  cancelButtonText:'Cancelar'
+			}).then((result) => {
+			  if (result.isConfirmed) {
+				  eliminardoce(cod);
+				  setTimeout(function(){
+				  parent.location="ControladorDocente"
+				  },1000)
+			  }
+			})
+		})
+		//esto lo llamamos en la linea de arriba en el if del result.isconfirmed
+		function eliminardoce(cod){
+			var codigo=Number(cod);
+			var url="ControladorDocente?accion=Eliminar&codigo="+codigo;
+			$.ajax({
+				url:url,
+				async:true,
+				success:function(r){
+					console.log(r)	
+				}
+			})
+		}
+	})
 
+</script>
 
 <!-- FIN DE BLOQUES SCRIPT -->
 </body>
