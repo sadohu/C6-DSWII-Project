@@ -1,4 +1,5 @@
 package ClienteDocente;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -39,7 +40,7 @@ public class ClassConsumirDocente {
 				//condicionando que si es diferente de 200 osea no esta bien
 				if(response.getStatus() != 200){
 					//emite mensaje de error..., error y traera el status 
-					System.out.println("Fuera de Rango");
+	System.out.println("Fuera de Rango"); //En consola aparece cuando no esta activado el servicio
 				}//fin de if
 				//caso contrario si es == 200 osea ok, leemos almacenamos en responsejson la lectura
 				responsejson = response.readEntity(String.class);
@@ -59,7 +60,122 @@ public class ClassConsumirDocente {
 				//retornamos el listado
 				return lis;	
 			}//fin de ListadoDocente
-		
+			
+			//Para agregar
+			public void CrearDocente(Docente doc){
+				//Creamos el objeto cliente...
+				//Invocamos la interfaz para poder consumir
+				Client cliente = ClientBuilder.newClient();
+				//Recuperamos nuestra url del servicio para crear
+				WebTarget webtarget = cliente.target("http://localhost:8080/ServicioAPIWebII/Docente/Crud/CrearDocente");
+				//crear un objeto invocation builder para la solicitud
+				//invocation le pasamos o decimos que consumira JSON con MediaType.APPLICATION_JSON
+				Invocation.Builder invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+				//realizamos la solicitud POST con el objeto doc
+				//obtenemos en response el JSON
+				Response response = invocationBuilder.post(Entity.entity(doc,MediaType.APPLICATION_JSON));
+				//condicionando que si es diferente de 200 osea  esta bien
+						if(response.getStatus() != 200){
+							//emite mensaje de error..., error y traera el status 
+							System.out.println("Docente creado exitosamente en BD");
+						}//fin de if
+						else{
+							System.out.println("Error al crear al Docente "+response.getStatus());
+						}//fin de else
+				
+			}//fin de CrearDocente	
+			
+			//Creamos el metodo listar por ID
+			//Consumimos el metodo que devuelve un Docente
+			public Docente BuscarPorCod(int cod){
+				//declaramos objetos ...
+				Response response=null;
+				WebTarget webtarget=null;
+				Client cliente=ClientBuilder.newClient();
+				Docente doce=null;
+				String responsejson=null; 
+				ObjectMapper objmap=new ObjectMapper(); 
+
+				webtarget=cliente.target("http://localhost:8080/ServicioAPIWebII/Docente/Crud/BuscarDocente/"+cod);
+				
+				Invocation.Builder invocationbuilder=webtarget.request(MediaType.APPLICATION_JSON);
+				response=invocationbuilder.get();
+				//aplicamos una condicion...
+
+				if(response.getStatus()==200){
+					responsejson=response.readEntity(String.class);
+					try {
+						doce=objmap.readValue(responsejson,Docente.class);
+					} catch (JsonParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JsonMappingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else if(response.getStatus()==404){
+					System.out.println("Docente no encontrado");
+				} else{
+					System.out.println("Fuera de rango "+response.getStatus());
+				} //fin del else...
+
+				//retornamos el valor
+
+				return doce;
+			}  //fin del metodo BuscarPorCod
+			
+			//Creamos el metodo de actualizar docente
+			public void ActualizarDocente(Docente de ){
+				//Creamos el objeto cliente...
+						//Invocamos la interfaz para poder consumir
+			Client cliente = ClientBuilder.newClient();
+			//Recuperamos nuestra url del servicio para crear
+		WebTarget webtarget = cliente.target("http://localhost:8080/ServicioAPIWebII/Docente/Crud/ActualizarDocente");
+				//crear un objeto invocation builder para la solicitud
+				//invocation le pasamos o decimos que consumira JSON con MediaType.APPLICATION_JSON
+				Invocation.Builder invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+				//realizamos la solicitud PUT con el objeto de
+				//obtenemos en response el JSON
+				Response response = invocationBuilder.put(Entity.entity(de,MediaType.APPLICATION_JSON));
+				//condicionando que si es diferente de 200 osea  esta bien
+						if(response.getStatus() == 201){
+							//emite mensaje de error..., error y traera el status 
+							System.out.println("Docente actualizado exitosamente en BD");
+						}//fin de if
+						else{
+							System.out.println("Error al actualizar al Docente "+response.getStatus());
+						}//fin de else
+			}//fin de ActualizarDocente
+			
+			//Creamos el metodo eliminar docente
+			public void EliminarDocente(int cod){
+				//Creamos el objeto cliente...
+				//Invocamos la interfaz para poder consumir
+		Client cliente = ClientBuilder.newClient();
+		//Recuperamos nuestra url del servicio para crear
+		WebTarget webtarget = cliente.target("http://localhost:8080/ServicioAPIWebII/Docente/Crud/EliminarDocente/"+cod);
+		//crear un objeto invocation builder para la solicitud
+				//invocation le pasamos o decimos que consumira JSON con MediaType.APPLICATION_JSON
+				Invocation.Builder invocationBuilder = webtarget.request(MediaType.APPLICATION_JSON);
+				//realizamos la solicitud DELETE 
+				
+				Response response = invocationBuilder.delete();
+				//condicionando que si es diferente de 200 osea  esta bien
+						if(response.getStatus() == 200){
+							//emite mensaje de error..., error y traera el status 
+							System.out.println("Docente eliminado exitosamente en BD");
+						}//fin de if
+						else if(response.getStatus()==400){
+							System.out.println("Error :  Docente no encontrado");
+						}
+						else{
+							System.out.println("Error al eliminar el Docente "+response.getStatus());
+						}//fin de else
+			}//fin de EliminarDocente
+			
 		
 	
 	

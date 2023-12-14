@@ -1,20 +1,15 @@
-<!--Importamos de jstl el core para lenguaje de expresion  $ { } y le asignamos un prefijo u objeto  
-c dond usarmeos las etiquetas del core por medio del prefijo c-->
 
-<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
-<!--FIN DE IMPORTACION  -->
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+      <%@page import="java.util.*"%>
+    <%@page import="Modelo.Docente"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<!--Importamos bootstrap-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
    <!-- Fin de Bootstrap -->
@@ -48,28 +43,8 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 <body>
 <!-- Contenido centrado y con margens con container -->
 <div class="container">
-<!------ Para el alert de bootstrap -->
-<!-- Validamos con JSTL de la libreria core donde si existe atributo se muestre 
-y si no existe no se muestre, el atributo que almacena los mensajes que queremos que se muestre 
-del servlet docente vienen asi request. setAttribute("MENSAJE","Error al actualizar..." )
-por medio de la variable o atributo  MENSAJE  quien contiene el texto-->
-<!-- El servlet envia respuestas por medio de un atributo a la vista, y el alert este sera visible
-siempre y cuando exista el atributo MENSAJE que viene del ServletDocente -->
 
-<!-- Validaremos con if del JSTL que es c : if, donde dentro del test se hará una evaluación -->
-<!-- Recuperamos con requestScope el atributo MENSAJE del servlet y decimos que si es diferente de null 
-osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSAJE es null no se muestra-->
-<c:if test="${requestScope.MENSAJE !=null }"> 
-	<div class="alert alert-warning alert-dismissible fade show" role="alert">
-	<!-- Para imprimir el valor de MENSAJE que viene de ServletDocente lo llamamos asi -->
-	  <strong>${requestScope.MENSAJE}</strong>
-	  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-	    <span aria-hidden="true">&times;</span>
-	  </button>
-	</div>
-	
-</c:if>
-<!-----FIN DEL ALERT DE BOOTSTRAP  -->
+	</br>
   <h2 class="text-center" >Listado de Docentes</h2>
   <!-- Insertamos boton -->
   <!-- Agregamos a boton data-toggle que es model y agregamos data-target que hara la conexion con el nombre o id del model de abajo-->
@@ -81,17 +56,19 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
   <!-- ESPACIADO  class mt-4 es margen superior de 4 para toda la tabla -->
   <div class="mt-4">
   <!-- INICIO DE LA TABLA y asignamos id tableDocentes -->
+ 		
+  
   <table id="tableDocentes" class="table table-striped table-bordered" style="width:100%">
   		<!-- thead seria para el nombre de las columnas o encabezado -->
         <thead>
             <tr>
-                <th>Código</th>
-                <th>Nombres</th>
-                <th>Paterno</th>
-                <th>Materno</th>
-                <th>Sexo</th>
-                <th>Hijos</th>
-                <th>Sueldo</th>
+                <th align="center">Código</th>
+                <th align="center">Nombres</th>
+                <th align="center">A.Paterno</th>
+                <th align="center">A.Materno</th>
+                <th align="center">Sexo</th>
+                <th align="center">Hijos</th>
+                <th align="center">Sueldo</th>
                 <!-- Creamos 2 th para los botones -->
                 <th></th>
                 <th></th>
@@ -111,35 +88,70 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
          el atributo docentes que almacena la variable lista fue llamado de un request y creamos una variable row de tipo var 
          para llamar a los campos de la lista que trae el requestScope.docentes,tambien row es un objeto de la lista que
          trae requestScope.docentes -->
-         
-         <c:forEach var="row" items="${listado}" >
-            <tr>
-            <!-- llamamos con $ { } y con el objeto row llamamos a los campos de la lista que trae el requestScope.docentes 
-            y llamamos en orden en base a las columnas pero las variables despues del row. la sacamos del paquete entidad Docente
-             los atributos declarados en la clase Docente del paquete entidad de ahi sacamos estos nombres de abajo-->
-              	<td>${row.codigo}</td>
-                <td>${row.nombres}</td>
-                <td>${row.paterno}</td>
-                <td>${row.materno}</td>
-                <td>${row.sexo}</td>
-                <td>${row.hijos}</td>
-                <td>${row.sueldo}</td> 
-               
-                
-                
-                
-                
-                <!-- Creamos 2 td para los botones y para el boton Editar agregamos data-toggle y data-target
-                para que aparezca el modal del agregar -->
-                <!-- Asignamos btn-editar es una clase que nos ayudará para relacionar e usarlo en script de abajo -->
-                <td><button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente">Editar</button></td>
-                <!-- Asignamos btn-eliminar es una clase que nos ayudará para relacionar e usarlo en script de abajo -->
-                <td><button type="button" class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#modalEliminar" >Eliminar</button></td>
-            </tr>
-            </c:forEach>
+		            <%
+		List<Docente> listado =(List<Docente>)request.getAttribute("listado");
+		//Aplicamos una condicion , si es diferente de null osea si hay data de listado
+		if(listado != null){
+			//aplicamos un bucle for... lis almacena lo de listado
+			for(Docente lis: listado){
+				%>
+				<tr>
+				<td align="center"><%=lis.getCodigo() %></td>
+				<td align="center"><%=lis.getNombres() %></td>
+				<td align="center"><%=lis.getPaterno() %></td>
+				<td align="center"><%=lis.getMaterno() %></td>
+				<td align="center"><%=lis.getSexo() %></td>
+				<td align="center"><%=lis.getHijos() %></td>
+				<td align="center"><%=lis.getSueldo() %></td>
+				<!-- <td align="center">Actualizar</td>
+				
+				<td align="center">Eliminar</td> -->
+			
+				<%-- <td align="center"><a href="ControladorDocente?accion=Buscar&codigo=<%=lis.getCodigo() %>"><img src="imagenes/Update.png" width="30px" height="30px"></a></td>
+				<td align="center"><a id="eliminar" href="ControladorDocente?accion=Eliminar&codigo=<%=lis.getCodigo() %>"><img src="imagenes/Delete.png" width="30px" height="30px"></a><input type="hidden" id="codigo" value="<%=lis.getCodigo() %>"></td> --%>
+				
+				    <!-- <td align="center"><button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente">Editar</button></td> -->
+				    <td align="center">
+					  <button type="button" class="btn btn-info btn-editar" data-toggle="modal" data-target="#modalDocente">
+					    <a href="ControladorDocente?accion=Buscar&codigo=<%=lis.getCodigo() %>" style="color: white;">Editar</a>
+					  </button>
+					</td>
+				    
+				    <td align="center">
+				    <button type="button" class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#modalEliminar" >
+				    <a href="ControladorDocente?accion=Buscar&codigo=<%=lis.getCodigo() %>" style="color: white;">Eliminar</a>
+				    </button>
+				    
+				    </td>
+				</tr>
+				<%
+			}//fin de for
+			
+			
+		}//fin de if
+		%>
+            
+            
+            
          </tbody>
          <!--FIN de tbody  --> 
     </table>
+    
+     	<!-- MENSAJE -->
+		 	<% 
+		 	String successMessage = (String)request.getAttribute("successMessage");
+		 	String men = "";
+		 	
+			  if (successMessage != null ) {
+				 men = "GUARDADO";
+			  }
+			%>
+			  <div align="center"  id="successMessage"  style="display: none;" >
+			   <%=men%>
+			  </div>
+		  <!-- MENSAJE -->
+		  
+		
   <!-- FIN DE LA TABLA -->
   </div>
   <!-- FIN DEL DIV MT-4 para margen superior de 4 -->
@@ -150,6 +162,9 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
+      
+      
+      
       <!-- Nombre del docente  -->
         <h5 class="modal-title" id="exampleModalLabel">DOCENTE</h5>
        <!-- Fin del nombre del docente -->
@@ -166,7 +181,7 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
       <!-- FORMULARIO -->
       <!-- Al form agregamos action donde ira al ServletDocente y al parametro Tipo y elige GRABAR
       y asignamos methodo post para que no se vea en el URL -->
-		<form id="idRegistrar" action="ServletDocente?TIPO=GRABAR" method="post">
+		<form id="idRegistrar" action="ControladorDocente" method="post">
 		<!--Para codigo y no visualizar llamamos solo al input y, le pondremos hidden-->
 		<input type="hidden" class="form-control" id="idCodigo" name="codigo">
 		<!-- FIN DE PARA CODIGO -->
@@ -203,6 +218,7 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
 		      </select>
 		    <!-- Fin de despegable con bootstrap con SELECT -->
 		  </div>
+		  
 		  <!-- Creamos botones dentro de formulario -->
 		   <div class="modal-footer">
 		   <!-- para grabar le ponemos type submit para que active al formulario y active la validación de abajo -->
@@ -260,6 +276,9 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
      	  </div>
 		</form>
 		<!-- FIN DEL FORMULARIO FORM -->
+		
+		
+		
       </div>
       <!-- FIN del div class modal-body -->
      
@@ -269,11 +288,17 @@ osea trae algo entonces mostrar en el alert de bootstrap,caso contrario si MENSA
   <!-- -----------FIN DE MODAL PARA ELIMINAR-------- -->
 </div>
 <!-- Importamos más cosas que se necesitaran hasta mas campos para bootstrap esto sirve para paginacion y search y demás de la tabla junto a lo que esta en script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="toastr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
 <!-- script para validar las cajas de texto --> 
 <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.js"></script>
 
@@ -347,6 +372,7 @@ $(document).on("click","#idNuevo",function(){
 	//mostrar en la caja con ID idCodigo el valor de 0 para agregar y que en la validacion
 	//if(bean.getCodigo()==0)  del servlet al ser 0 , agregará
 	$('#idCodigo').val(0);
+    
 
 })
 //FIN DE EVENTO CLICK DE NUEVO DOCENTE
@@ -459,6 +485,26 @@ fields:{
 
 });
 </script>
+<script>
+	 /* Agrega este script para ocultar el mensaje despu de 5 segundos */
+ setTimeout(function() { 
+       // document.getElementById('successMessage').style.display = 'none';
+	 document.getElementById('successMessage').style.display = 'none';
+    }, 100);
+
+  // Obt el valor de idSolicitud desde el elemento span
+   // var mensaje = document.getElementById('successMessage').innerText.trim();
+   var mensaje = document.getElementById('successMessage').innerText.trim();
+    // Muestra el toast con el mensaje 
+    if(mensaje  == null || mensaje == "" ){
+    	console.log("Blah");
+    }else{
+    	 toastr.success(mensaje);
+    	 console.log("Si hay guardado");
+    } 
+   
+	</script>
+
 
 <!-- FIN DE BLOQUES SCRIPT -->
 </body>

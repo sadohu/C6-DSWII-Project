@@ -46,7 +46,44 @@ public class ControladorDocente extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//doGet(request, response);
-	}
+		//Obtenemos los parametros de los name de docente.jsp
+		//PARA EL ID
+		String codi = request.getParameter("codigo");
+		int cod = 0;
+		if(codi!=null){
+			//cod se convierte en INT 
+			cod=Integer.parseInt(codi);
+		}
+		//Para demás campos
+		String nombre = request.getParameter("nombre");
+		String paterno = request.getParameter("paterno");
+		String materno = request.getParameter("materno");
+		String sexo=request.getParameter("sexo");
+		String hijos = request.getParameter("hijos");
+		String sueldo = request.getParameter("sueldo");
+		//Seteamos los atributos con Modelo Docente 
+		Docente bean=new Docente();
+		bean.setCodigo(cod);
+		bean.setNombres(nombre);
+		bean.setPaterno(paterno);
+		bean.setMaterno(materno);
+		bean.setSexo(sexo);
+		bean.setHijos(Integer.parseInt(hijos));
+		bean.setSueldo(Double.parseDouble(sueldo));
+		//Consumir API
+		ClassConsumirDocente consumir = new ClassConsumirDocente();
+		//invocamos al metodo registrar
+		consumir.CrearDocente(bean);
+		//actualizar la vista
+				List<Docente> listar = consumir.ListadoDocente();
+				request.setAttribute("listado", listar);
+				//request.setAttribute("successMessage", "Guardado");
+				// Establecer el atributo en la sesión para que esté disponible solo para la siguiente solicitud
+				request.setAttribute("successMessage", "GuardadobyMark");
+				//redirecccionamos
+				request.getRequestDispatcher("/docente.jsp").forward(request, response);
+		
+		
+	} //fin de doPost
 
 }
