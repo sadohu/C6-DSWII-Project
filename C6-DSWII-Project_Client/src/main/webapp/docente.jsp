@@ -131,10 +131,11 @@ box-shadow: 0 0 0 0.2rem rgba(250,16,0,0.18);
 				    
 				    <td align="center">
 				    <!-- <button type="button" class="btn btn-danger btn-eliminar" data-toggle="modal" data-target="#modalEliminar" > -->
-				    <button type="button" class="btn btn-danger btn-eliminar" >
-				    <a id="eliminar" href="ControladorDocente?accion=Eliminar&codigo=<%=lis.getCodigo() %>" style="color: white;">Eliminar</a>
+				    
+				    <a id="eliminar" href="ControladorDocente?accion=Eliminar&codigo=<%=lis.getCodigo() %>" style="color: white;">
+				    <button type="button" class="btn btn-danger btn-eliminar" >Eliminar</button></a>
 				    <input type="hidden" id="cod" value="<%=lis.getCodigo() %>">
-				    </button>
+				    
 				    
 				    </td>
 				</tr>
