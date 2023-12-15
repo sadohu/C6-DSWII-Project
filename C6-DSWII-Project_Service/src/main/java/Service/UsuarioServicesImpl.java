@@ -173,7 +173,7 @@ public class UsuarioServicesImpl implements UsuarioService {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Usuario usuarioEnBD = null;
-		String sql = "SELECT * FROM tb_usuario WHERE log_usu = ?, pas_usu = ?";
+		String sql = "SELECT * FROM tb_usuario WHERE log_usu = ? and pas_usu = ?";
 
 		try {
 			connection = MySqlConexion.conexion();
