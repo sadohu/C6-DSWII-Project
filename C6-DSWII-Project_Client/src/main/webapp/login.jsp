@@ -21,25 +21,6 @@
 					<div class="card shadow-2-strong" style="border-radius: 1rem;">
 						<div class="card-body p-5 text-center">
 							<h3 class="mb-5">Inicio de sesión</h3>
-							<!--
-							<div th:if="${param.error}">
-								<div class="alert alert-danger alert-dismissible fade show" role="alert">
-									Username o password inválidos
-									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-							</div>
-							 
-							<div th:if="${param.logout}">
-								<div class="alert alert-primary alert-dismissible fade show" role="alert">
-									Ha cerrado sesión exitosamente
-									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-							</div>
-							 -->
 							<form  method="post">
 								<div class="form-outline mb-4">
 									<input type="text" id="username" name="username"

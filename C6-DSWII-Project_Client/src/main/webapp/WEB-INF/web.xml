@@ -10,8 +10,18 @@
   	<description></description>
   	<servlet-class>Controller.ControladorDocente</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>UsuarioController</servlet-name>
+  	<display-name>UsuarioController</display-name>
+  	<description></description>
+  	<servlet-class>Controller.UsuarioController</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ControladorDocente</servlet-name>
   	<url-pattern>/ControladorDocente</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>UsuarioController</servlet-name>
+  	<url-pattern>/UsuarioController</url-pattern>
   </servlet-mapping>
 </web-app>

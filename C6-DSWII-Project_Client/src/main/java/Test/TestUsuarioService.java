@@ -18,7 +18,7 @@ public class TestUsuarioService {
 //		registar("aluze", "123");
 //		buscar(8);
 //		actualizar(8, "aluzeluperdi", "123456");
-		login("aluzeluperdi", "123456");
+//		login("aluzeluperdi", "123456");
 //		eliminar(8);
 	}
 
