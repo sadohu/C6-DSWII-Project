@@ -7,13 +7,13 @@ import javax.swing.JOptionPane;
 
 public class MySqlConexion {
 	//Declaramos variables globales
-		private static String url="jdbc:mysql://localhost:3306/instituto_2021_t4dn";
-		private static String usuario="root";
-		private static String password="mysql";
+//		private static String url="jdbc:mysql://localhost:3306/instituto_2021_t4dn";
+//		private static String usuario="root";
+//		private static String password="mysql";
 	
-//		private static String url="jdbc:mysql://localhost:3307/instituto_2021_t4dn";
-//		private static String usuario="root1";
-//		private static String password="123456";
+		private static String url="jdbc:mysql://localhost:3307/instituto_2021_t4dn";
+		private static String usuario="root1";
+		private static String password="123456";
 		private static Connection cn;
 		//Creamos un metodo de conexión
 		public static Connection conexion(){
