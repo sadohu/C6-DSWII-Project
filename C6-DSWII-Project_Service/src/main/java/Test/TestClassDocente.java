@@ -5,61 +5,77 @@ import Entidad.Docente;
 import Service.DocenteServiceImpl;
 
 public class TestClassDocente {
+	
+	private static DocenteServiceImpl service = new DocenteServiceImpl();
 
 	public static void main(String[] args) {
-		//Instanciamos las respectivas clases
-				//PARA REGISTRAR
-				Docente doc = new Docente();
-				DocenteServiceImpl imp = new DocenteServiceImpl();
-				//Asignamos los nuevos valores...
-				doc.setNombres("Hayley");
-				doc.setPaterno("Williams");
-				doc.setMaterno("Paramore");
-				doc.setSexo("Femenino");
-				doc.setHijos(1);
-				doc.setSueldo(11399.22);
-			
-				//invocamos al metoo registrar
-				imp.RegistrarDocente(doc);
-				
-				//PARA ACTUALIZAR
-				/*doc.setNombres("Peter");
-				doc.setPaterno("Mc Flight");
-				doc.setMaterno("Alister");
-				doc.setSexo("Masculino");
-				doc.setHijos(2);
-				doc.setSueldo(399.22);
-				
-				//actualizaremos al de id 5
-				doc.setCodigo(46);
-				//invocamos al metodo actualizar
-				imp.ActualizarDocente(doc);
-				*/
-				
-				//PARA ELIMINAR
-				//Asignamos al idAutor el id a eliminar
-				//doc.setCodigo(47);
-				//llamamos al metodo
-				//imp.EliminarDocente(doc);
-				
-				//PARA Buscar por codigo
-				/*doc.setCodigo(1);
-				Docente buscardocente = imp.BuscarDocente(doc);
-						//imprimimos por pantalla
-				System.out.println("Código: " +buscardocente.getCodigo()+" Nombre Docente: "+buscardocente.getNombres()+
-						" Paterno: "+buscardocente.getPaterno()+" Materno: "+buscardocente.getMaterno()+" Sexo: "+buscardocente.getSexo()+" N° Hijos: "+
-						buscardocente.getHijos()+" Sueldo: "+buscardocente.getSueldo());*/
-				
-				//PARA LISTAR EN GENERAL
-				/*List<Docente> listado=imp.listado();
-				//Aplicamos un bucle for que recorrera en listado y se almacenara en list
-						for(Docente list:listado){
-							//Realizamos una impresion por pantalla...
-				System.out.println("Código: " +list.getCodigo()+" Nombre Docente: "+list.getNombres()+
-			" Paterno: "+list.getPaterno()+" Materno: "+list.getMaterno()+" Sexo: "+list.getSexo()+" N° Hijos: "+
-						list.getHijos()+" Sueldo: "+list.getSueldo());
-						}//fin de bucle
-*/
+		listar();
+//		registrar("Hayley", "Williams", "Paramore", "Femenino", 1, 11399.22);
+//		buscar(7);
+//		actualizar(7, "Peter", "Mc Flight", "Alister", "Masculino", 2, 399.22);
+//		eliminar(7);
 	}//fin de main
+	
+	public static void listar() {
+		// PARA LISTAR EN GENERAL
+		List<Docente> docentes = service.listado();
+		for (Docente docente : docentes) {
+			System.out.println(docente);
+		}
+	}
+	
+	private static void registrar(String nombre, String paterno, String materno, String sexo, int hijos, double sueldo){
+		//PARA REGISTRAR
+		Docente doc = new Docente();
+		//Asignamos los nuevos valores...
+		doc.setNombres(nombre);
+		doc.setPaterno(paterno);
+		doc.setMaterno(materno);
+		doc.setSexo(sexo);
+		doc.setHijos(hijos);
+		doc.setSueldo(sueldo);
+	
+		//invocamos al metoo registrar
+		service.RegistrarDocente(doc);
+		
+		List<Docente> docentes = service.listado();
+		int lastIndex = docentes.size() - 1;
+		System.out.println(docentes.get(lastIndex));
+	}
+	
+	private static void actualizar(int codigo, String nombre, String paterno, String materno, String sexo, int hijos, double sueldo){
+		Docente doc = new Docente();
+		//PARA ACTUALIZAR
+		doc.setCodigo(codigo);
+		doc.setNombres(nombre);
+		doc.setPaterno(paterno);
+		doc.setMaterno(materno);
+		doc.setSexo(sexo);
+		doc.setHijos(hijos);
+		doc.setSueldo(sueldo);
+		
+		//invocamos al metodo actualizar
+		service.ActualizarDocente(doc);
+		
+		Docente docente = service.BuscarDocente(doc);
+		System.out.println(docente);
+	}
+	
+	private static void eliminar(int codigo){
+		//PARA ELIMINAR
+		//Asignamos al idAutor el id a eliminar
+		Docente doc = new Docente();
+		doc.setCodigo(codigo);
+		//llamamos al metodo
+		service.EliminarDocente(doc);
+	}
+	
+	private static void buscar(int codigo){
+		//PARA Buscar por codigo
+		Docente doc = new Docente();
+		doc.setCodigo(codigo);
+		Docente buscardocente = service.BuscarDocente(doc);
+		System.out.println(buscardocente);
+	}
 
 }//fin de TestClass
