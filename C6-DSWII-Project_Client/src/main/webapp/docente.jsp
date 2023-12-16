@@ -19,7 +19,7 @@
    <!-- Estilo de la tabla -->
    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap4.min.css">
    <!-- Fin del estilo de tabla -->
-<title>Docente</title>
+<title>Docente - Institución Educativa</title>
 <!-- Creamos style para css -->
 <style type="text/css">
 /*Aqui con este modal-header damos estilo al contenedor del titulo REGISTRAR DOCENTE */
