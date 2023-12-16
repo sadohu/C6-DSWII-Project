@@ -12,7 +12,7 @@
 	<header>
 		<nav
 			class="navbar navbar-expand-lg navbar-dark bg-dark d-flex justify-content-center">
-			<div class="navbar-brand">Mantenimiento de Docentes</div>
+			<div class="navbar-brand">Institución Educativa</div>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNav" aria-controls="navbarNav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,13 @@
 				<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 					<div class="card shadow-2-strong" style="border-radius: 1rem;">
 						<div class="card-body p-5 text-center">
-							<h3 class="mb-5">Inicio de sesión</h3>
+							<div class="mb-5">
+								<img alt="imagenProfesor"
+									src="https://cdn-icons-png.flaticon.com/512/3750/3750020.png"
+									width="128px" height="128px">
+								<h3>Inicio de sesión</h3>
+							</div>
+
 							<form method="post">
 								<div class="form-outline mb-4">
 									<input type="text" id="username" name="username"
@@ -40,10 +46,13 @@
 										class="form-control form-control-lg" /> <label
 										class="form-label" for="typePasswordX-2">Password</label>
 								</div>
-								<button class="btn btn-primary btn-lg btn-block" type="submit">Iniciar
-									sesión</button>
+								<button class="btn btn-primary btn-lg btn-block" type="submit">
+
+									<span>Ingresar</span>
+								</button>
 							</form>
 							<hr class="my-4">
+							<p style="font-size:12px;">Confia en el señor, sigue el camino de Cheems...  <img alt="cheems" src="https://i.pinimg.com/1200x/23/c1/de/23c1de3c708ed6eb565a038fb5a26e63.jpg" width="36px"></p>
 						</div>
 					</div>
 				</div>
@@ -65,19 +74,17 @@
 	</div>
 	<!-- MENSAJE -->
 
-	<footer class="container">
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-			integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
-			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-			integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-			crossorigin="anonymous"></script>
-	</footer>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="toastr.min.js"></script>
